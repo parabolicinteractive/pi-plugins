@@ -153,4 +153,11 @@ When an AI agent works on this project, it should:
 4. **Update docs alongside code** — if a code change invalidates a design spec or ADR, update the document in the same PR.
 5. **Use the frontmatter** — status, links, and tags are machine-readable. Use them to navigate the doc graph.
 
+### Output Rules
+
+All generated document content — including filenames, headings, body text, frontmatter tags, and cross-references — must follow these rules:
+
+- **No emojis.** Never include emoji characters in generated documents. Use plain text only.
+- **No em-dashes.** Use hyphens (-) instead of em-dashes in all generated content.
+
 For detailed templates for each document type, read the `pi-doc-templates` skill. For guidance on defining and enforcing domain vocabulary, read the `pi-domain-model` skill.
