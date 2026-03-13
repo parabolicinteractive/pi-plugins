@@ -1,0 +1,9 @@
+{
+  "name": "pi-docs",
+  "version": "0.1.0",
+  "description": "Structured software specification documentation system. Create, manage, and cross-link spec documents (vision, SRS, ADRs, RFCs, architecture, design specs, domain models, and more) following 2026 best practices for developers, investors, and AI agents.",
+  "author": {
+    "name": "Parabolic Interactive"
+  },
+  "keywords": ["documentation", "specifications", "ADR", "RFC", "architecture", "requirements", "domain-model"]
+}
