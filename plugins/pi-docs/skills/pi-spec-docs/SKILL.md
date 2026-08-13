@@ -34,8 +34,8 @@ say so rather than borrowing one from another standard.
 |---|---|---|
 | Source analysis, SRS | ISO/IEC/IEEE 29148:2018 | Implemented |
 | SAD, ADR | ISO/IEC/IEEE 42010:2022 | Implemented, conformance not claimed |
+| STP | ISO/IEC/IEEE 29119-3:2021 | Implemented |
 | SDD | IEEE 1016-2009 | Not yet implemented |
-| STP | ISO/IEC/IEEE 29119-3:2021 | Not yet implemented |
 | Baselines, change management | ISO/IEC/IEEE 12207:2017 | Referenced by 29148 6.6 |
 | Information item content | ISO/IEC/IEEE 15289:2019 | Umbrella |
 
@@ -93,6 +93,10 @@ prose around them.
 | `COR-NNN` | Correspondence | SAD |
 | `INC-NNN` | Known inconsistency | SAD |
 | `ADR-NNNN` | Architecture decision record | ADR |
+| `RSK-NNN` | Risk register entry | STP |
+| `TM-NNN` | Test model | STP |
+| `TCI-NNN` | Test coverage item | STP |
+| `TC-NNN` | Test case | STP |
 
 `<CAT>` for non-functional requirements is one of `USE`, `PERF`, `DB`, `SEC`,
 `REL`, `MAINT`, `PORT`, matching the 29148 9.6 content elements they derive from.
@@ -139,17 +143,22 @@ fixed version of a configuration item (29148 3.1.3).
 Report conformance using each standard's own terms, not invented verdicts. **The
 vocabulary differs per standard.** Do not apply one standard's rules to another.
 
-### 29148 documents: analysis reports, SRS
+### Tailoring permitted: analysis reports, SRS (29148), STP (29119-3)
 
-29148 clause 4 defines conformance, and Annex C makes tailoring a normative,
-deliberate act.
+29148 clause 4 with Annex C, and 29119-3 clause 4.1, both make tailoring a
+normative, deliberate act.
 
 - **Full conformance** - all required content of the information item is present.
 - **Tailored conformance** - content is omitted, and each omission is declared
   with a reason in the document's tailoring record.
 - **Non-conformant** - required content is missing and undeclared.
 
-### 42010 documents: SAD, ADR
+For the STP there is an added rule. The obligation level of each information item
+lives in 29119-3 Annex A, which is unverified. Every content element is therefore
+included by default, and **every omission is recorded as tailoring** rather than
+assumed permissible. See `references/stp.md`.
+
+### Tailoring prohibited: SAD, ADR (42010)
 
 42010 clause 4 states that tailoring is **neither required nor permitted** when a
 conformance claim is made. Conformance is binary. There is no tailored option and
@@ -276,5 +285,5 @@ anything. Each contains the template and its validation checklist.
 | Software Requirements Specification | `references/srs.md` |
 | Software Architecture Document | `references/sad.md` |
 | Architecture Decision Record | `references/adr.md` |
+| Software Test Plan | `references/stp.md` |
 | Software Design Description | Pending |
-| Software Test Plan | Pending |

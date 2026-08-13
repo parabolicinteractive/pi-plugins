@@ -13,8 +13,8 @@ Produces five document types plus the analysis artifacts that connect them:
 | Software Requirements Specification (SRS) | ISO/IEC/IEEE 29148:2018 | Available, full conformance |
 | Software Architecture Document (SAD) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
 | Architecture Decision Record (ADR) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
+| Software Test Plan (STP) | ISO/IEC/IEEE 29119-3:2021 | Available, full conformance |
 | Software Design Description (SDD) | IEEE 1016-2009 | Not yet implemented |
-| Software Test Plan (STP) | ISO/IEC/IEEE 29119-3:2021 | Not yet implemented |
 
 Document types marked as not yet implemented will refuse to generate rather than
 improvise a structure from general knowledge.
@@ -125,6 +125,8 @@ Identifiers are the load-bearing structure. Everything else is prose around them
 | `VP-NNN` / `VW-NNN` / `MK-NNN` | Viewpoint / view / model kind |
 | `COR-NNN` / `INC-NNN` | Correspondence / known inconsistency |
 | `ADR-NNNN` | Architecture decision record |
+| `RSK-NNN` | Risk register entry |
+| `TM-NNN` / `TCI-NNN` / `TC-NNN` | Test model / test coverage item / test case |
 
 Three absolute rules:
 
@@ -197,8 +199,9 @@ Verification status of the citations used:
 | Standard | Verified | Not verified |
 |---|---|---|
 | 29148:2018 | Clause structure, all clause 3 definitions, clause 4 conformance, 5.2.5 to 5.2.8, 6.5.x, 6.6.2, 9.2.x, 9.6.1 to 9.6.20, Annex C | The example SRS outline at 8.5.2 |
+| 29119-3:2021 | Clause structure, every content element of clauses 5 to 8, all 26 clause 3 definitions, clause 1 scope, Figure 1 document hierarchy | Clause 4 normative text, and the Annex A obligation levels |
 | 42010:2022 | Clause structure, all 19 definitions, clause 4 conformance, 5.1 to 5.2.3, core ontology and cardinalities | Normative text of clauses 6, 7 and 8 |
-| 1016-2009, 29119-3:2021 | Nothing | Everything. Not implemented for that reason |
+| 1016-2009 | Nothing | Everything. Not implemented for that reason |
 
 Where a citation is unverified, the affected template says so in place rather
 than asserting a conformance claim it cannot support.

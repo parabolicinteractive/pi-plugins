@@ -16,8 +16,14 @@ declared in the `pi-spec-docs` skill.
 | `srs` | ISO/IEC/IEEE 29148:2018 | `docs/srs.md` | Available |
 | `sad` | ISO/IEC/IEEE 42010:2022 | `docs/sad.md` | Available, conformance not claimed |
 | `adr` | ISO/IEC/IEEE 42010:2022 | `docs/adr/NNNN-<slug>.md` | Available, conformance not claimed |
+| `stp` | ISO/IEC/IEEE 29119-3:2021 | `docs/stp.md` | Available |
 | `sdd` | IEEE 1016-2009 | `docs/sdd.md` | Not yet implemented |
-| `stp` | ISO/IEC/IEEE 29119-3:2021 | `docs/stp.md` | Not yet implemented |
+
+`stp` produces the project test plan (29119-3 clause 7.2). 29119-3 defines a
+wider family of test documents, including test case and test procedure
+specifications, incident reports, and status and completion reports. Those are
+execution-time artifacts and this package does not generate them. If a user asks
+for one, say so and name the clause so they know it exists.
 
 If `$1` is empty, list the types and ask which one.
 
