@@ -1,6 +1,7 @@
 # pi-plugins
 
-Private plugin marketplace for Parabolic Interactive. Contains Claude Code and Cowork plugins for use across all PI projects.
+Private plugin marketplace for Parabolic Interactive. Contains Claude Code and
+Cowork plugins for use across all PI projects.
 
 ## Subscribe to this marketplace
 
@@ -12,7 +13,7 @@ Private plugin marketplace for Parabolic Interactive. Contains Claude Code and C
 
 | Plugin | Description |
 |--------|-------------|
-| **pi-docs** | Structured software specification documentation system — vision, SRS, ADRs, RFCs, architecture, design specs, domain models, executable specs, API contracts, and operations guides. |
+| **pi-docs** | Formal software specification documents (SRS, SAD, SDD, STP, ADR) conforming to the ISO/IEC/IEEE harmonized standards family, with identifier traceability and mechanical source coverage. |
 
 ## Install a plugin
 

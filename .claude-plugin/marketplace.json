@@ -7,7 +7,7 @@
     {
       "name": "pi-docs",
       "source": "./plugins/pi-docs",
-      "description": "Structured software specification documentation system. Create, manage, and cross-link spec documents (vision, SRS, ADRs, RFCs, architecture, design specs, domain models, and more) following best practices for developers, investors, and AI agents."
+      "description": "Formal software specification documents conforming to the ISO/IEC/IEEE harmonized standards family. Produces SRS, SAD, SDD, STP, and ADR documents that trace to each other by immutable identifier and never silently lose intent from their source material."
     }
   ]
 }

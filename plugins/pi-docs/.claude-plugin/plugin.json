@@ -1,9 +1,22 @@
 {
   "name": "pi-docs",
-  "version": "0.1.0",
-  "description": "Structured software specification documentation system. Create, manage, and cross-link spec documents (vision, SRS, ADRs, RFCs, architecture, design specs, domain models, and more) following 2026 best practices for developers, investors, and AI agents.",
+  "version": "1.0.0",
+  "description": "Formal software specification documents conforming to the ISO/IEC/IEEE harmonized standards family. Produces SRS, SAD, SDD, STP, and ADR documents that trace to each other by immutable identifier and never silently lose intent from their source material.",
   "author": {
     "name": "Parabolic Interactive"
   },
-  "keywords": ["documentation", "specifications", "ADR", "RFC", "architecture", "requirements", "domain-model"]
+  "keywords": [
+    "specifications",
+    "requirements",
+    "SRS",
+    "SAD",
+    "SDD",
+    "STP",
+    "ADR",
+    "traceability",
+    "29148",
+    "42010",
+    "1016",
+    "29119"
+  ]
 }

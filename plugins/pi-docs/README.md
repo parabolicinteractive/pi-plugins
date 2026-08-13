@@ -1,96 +1,190 @@
 # pi-docs
 
-A structured specification documentation system for software projects. Create, manage, audit, and cross-link spec documents following modern best practices for developers, investors, and AI agents.
+Formal software specification documents that conform to one interoperating
+standards family, trace to each other by immutable identifier, and never silently
+lose intent from their source material.
 
 ## What It Does
 
-pi-docs provides a complete documentation architecture for software projects — from product vision through operational runbooks. It establishes a consistent `docs/` directory structure, templates for 10 document types, cross-linking conventions, and tools to keep everything healthy.
+Produces five document types plus the analysis artifacts that connect them:
 
-The system is designed for three audiences simultaneously:
-- **Developers** get precise, actionable specs with code references and acceptance criteria.
-- **Investors** get clear product vision, market context, and business model documentation.
-- **AI agents** get explicit terminology, decision history, and measurable requirements — the three things that prevent agent drift and wasted effort.
+| Document | Standard | Status |
+|---|---|---|
+| Software Requirements Specification (SRS) | ISO/IEC/IEEE 29148:2018 | Available |
+| Software Architecture Document (SAD) | ISO/IEC/IEEE 42010:2022 | Not yet implemented |
+| Software Design Description (SDD) | IEEE 1016-2009 | Not yet implemented |
+| Software Test Plan (STP) | ISO/IEC/IEEE 29119-3:2021 | Not yet implemented |
+| Architecture Decision Record (ADR) | ISO/IEC/IEEE 42010:2022 | Not yet implemented |
 
-## Components
+Document types marked as not yet implemented will refuse to generate rather than
+improvise a structure from general knowledge.
 
-### Skills
+## Why One Standards Family
 
-| Skill | Triggers On |
-|-------|-------------|
-| **pi-doc-system** | "documentation structure", "what documents do we need", "where should I document this" |
-| **pi-doc-templates** | "create a spec document", "what should go in a vision doc", "template for ADR" |
-| **pi-domain-model** | "domain model", "ubiquitous language", "naming conventions", "what should we call this" |
+The classic IEEE document standards (830, 1471, 829) are widely recognized but
+were written independently and never designed to interoperate. Every link between
+them has to be invented by whoever uses them, and all three are withdrawn.
 
-### Commands
+The ISO/IEC/IEEE harmonized set was built to fit together. 29148:2018 states in
+its foreword that it was revised specifically to harmonize with 15288 and 12207,
+and its scope names 15289 conformance as an intended use. Concretely:
 
-| Command | Description |
-|---------|-------------|
-| `/pi-doc-create <type> [name]` | Create a new spec document from template |
-| `/pi-doc-audit [path]` | Audit docs for coverage gaps, broken links, stale content, terminology drift |
-| `/pi-doc-index [path]` | Generate or update the master document index |
-| `/pi-adr <title>` | Quick-create an Architecture Decision Record |
-| `/pi-doc-brainstorm <doc-path>` | Brainstorm improvements, scope advice, and ideas for a spec doc |
+- 29148 clause 9.6.19 requires a Verification section that mirrors the
+  requirements section. That is the interface to the test plan, defined by the
+  standard rather than bolted on.
+- 29148 clause 6.5.1 covers requirements activities in architecture definition.
+  That is the interface to the architecture document.
+- 29148 clause 6.6.2 covers change management. That is the basis for impact
+  analysis when a baseline moves.
 
-### Document Types Supported
+Traceability across documents is the reason this package exists. The harmonized
+family supports it natively; the classic suite does not.
 
-| Type | File | Description |
-|------|------|-------------|
-| Product Vision & Charter | `docs/vision.md` | Market opportunity, users, business model |
-| Domain Model | `docs/domain-model.md` | Shared vocabulary, entities, bounded contexts |
-| Software Requirements Spec | `docs/requirements.md` | Functional & non-functional requirements |
-| Technical Architecture | `docs/architecture.md` | System design, components, tech stack |
-| Architecture Decision Records | `docs/adrs/NNN-*.md` | One decision per file, never deleted |
-| Requests for Comments | `docs/rfcs/NNN-*.md` | Design explorations before decisions |
-| Technical Design Specs | `docs/designs/*.md` | Per-feature implementation designs |
-| Executable Specifications | `docs/specs/*.feature` | BDD scenarios (Gherkin format) |
-| API Contracts | `docs/api/*` | OpenAPI, GraphQL, webhook specs |
-| Operations Guide | `docs/operations.md` | Deployment, monitoring, incident response |
+One caveat, stated plainly: IEEE 1016-2009 is an IEEE standard rather than a
+joint ISO/IEC/IEEE publication like the others. It is the recognized design
+description standard and belongs in the set, but the set is not perfectly uniform.
 
-## Setup
+## Commands
 
-No configuration required. Install the plugin and use the commands.
+### `/pi-docs <type> [name]`
 
-The plugin expects spec documents to live in a `docs/` directory at the project root. The `/pi-doc-create` command will create this directory if it doesn't exist.
+Create or revise a specification document. Types: `srs`, `sad`, `sdd`, `stp`,
+`adr`.
 
-## Usage
+Create and revise are the same command. If the document exists it is revised in
+place, the version is bumped, and a revision history row is appended. The file
+path never changes; prior versions live in git history.
 
-**Starting a new project's documentation:**
+### `/pi-docs-analyze-sources [path]`
+
+Analyze source material into a source statement register and a findings list.
+
+Run this before writing an SRS. Sources may be client documents, RFPs, meeting
+transcripts, or an existing codebase.
+
+### `/pi-docs-realign [baseline]`
+
+Check the whole document set for conformance, consistency, and currency. Reports
+findings, then walks each one to a disposition.
+
+## Source Coverage
+
+The central guarantee: no instruction or intent from source material is lost.
+
+This is enforced mechanically rather than hoped for. Every atomic statement
+extracted from the sources receives an `S-NNN` identifier and exactly one
+disposition:
+
+| Disposition | Meaning |
+|---|---|
+| `requirement` | Became a requirement, named explicitly |
+| `finding` | Ambiguous, contradictory, unverifiable, or needs client input |
+| `out-of-scope` | Deliberately excluded, with a recorded reason |
+| `context` | Background carrying no instruction |
+
+The count of undispositioned statements must be zero. A statement that cannot be
+dispositioned becomes a finding. There is no silent drop, because a gap in the
+register is countable.
+
+Three validators run after generation as independent subagents:
+
+1. **Coverage** reads the sources without seeing the register, extracts its own
+   statement list, and reports anything the register missed. It is denied the
+   register deliberately, because an agent shown the register first confirms its
+   blind spots rather than finding them.
+2. **Fidelity** confirms each requirement states what its source stated. It
+   catches drift, invention, and hedges promoted to mandates.
+3. **Conformance** checks required content and requirement characteristics.
+
+## Identifiers
+
+Identifiers are the load-bearing structure. Everything else is prose around them.
+
+| Prefix | Meaning |
+|---|---|
+| `S-NNN` | Source statement |
+| `F-NNN` | Finding |
+| `FR-<AREA>-NNN` | Functional requirement |
+| `NFR-<CAT>-NNN` | Non-functional requirement |
+| `CON-NNN` | Constraint |
+| `ASM-NNN` / `DEP-NNN` | Assumption / dependency |
+| `CR-NNN` | Change request |
+| `ADR-NNNN` | Architecture decision record |
+
+Three absolute rules:
+
+1. Never renumber.
+2. Never reuse a withdrawn identifier.
+3. Never delete a withdrawn item. Mark it `Withdrawn` and leave it in place.
+
+Downstream documents, test cases, and code comments cite these identifiers. A
+reused number turns every one of those citations into a silent lie.
+
+## Document Lifecycle
+
+**Revised in place:** SRS, SAD, SDD, STP. These are baselined configuration items
+(29148 3.1.3). Changes bump the version and append to the revision history.
+
+**Superseded, never edited:** ADRs. An accepted decision record is immutable. When
+a decision changes, a new ADR supersedes the old one. The record of a reversed
+decision keeps its value.
+
+## Conformance Reporting
+
+Conformance uses the standard's own vocabulary (29148 clause 4):
+
+- **Full conformance** - all required content present.
+- **Tailored conformance** - content omitted, each omission declared with a
+  reason. Tailoring is a normative, deliberate act (29148 Annex C).
+- **Non-conformant** - required content missing and undeclared.
+
+An unanswered question is not an omission. It is a `TBD` (29148 3.2) with a
+register entry naming an owner. A document full of declared TBDs conforms. A
+document with gaps nobody noticed does not.
+
+## Layout
+
 ```
-/pi-doc-create vision
-/pi-doc-create domain-model
-/pi-doc-create requirements
-/pi-doc-create architecture
+docs/
+  srs.md
+  sad.md
+  sdd.md
+  stp.md
+  adr/
+    0001-<slug>.md
+  analysis/
+    0001-<date>-<slug>.md
+  changes/
+    CR-001-<slug>.md
+  sources/
 ```
 
-**Recording a decision:**
-```
-/pi-adr Use Supabase for backend
-```
+Analysis reports are the finding register. There is no separate register file;
+`grep -rn "Status: Open" docs/analysis/` is the query.
 
-**Checking documentation health:**
-```
-/pi-doc-audit
-```
+Change requests carry the baseline they arrived after, which makes scope
+expansion reportable: everything with `baseline: 1.0` came in after the
+specification was agreed.
 
-**Updating the master index:**
-```
-/pi-doc-index
-```
+## Standards Referenced
 
-**Brainstorming improvements to a spec:**
-```
-/pi-doc-brainstorm docs/designs/homepage.md
-```
-You'll be prompted to choose a thinking mode (expand, reduce, refine, or all three) and whether to save results to `docs/reviews/`.
+| Standard | Title | Role |
+|---|---|---|
+| ISO/IEC/IEEE 29148:2018 | Systems and software engineering, Life cycle processes, Requirements engineering | SRS content and requirement characteristics |
+| ISO/IEC/IEEE 42010:2022 | Software, systems and enterprise, Architecture description | SAD and ADR |
+| IEEE 1016-2009 | Information technology, Systems design, Software design descriptions | SDD |
+| ISO/IEC/IEEE 29119-3:2021 | Software and systems engineering, Software testing, Test documentation | STP |
+| ISO/IEC/IEEE 12207:2017 | Systems and software engineering, Software life cycle processes | Baselines and change management |
+| ISO/IEC/IEEE 15289:2019 | Systems and software engineering, Content of life-cycle information items | Information item content |
 
-## Philosophy
+Clause citations for 29148 were verified against the publisher preview of the
+2018 edition. Clause citations for the other standards are pending verification
+and their document types are not yet implemented for that reason.
 
-- **Docs as code** — everything in Git, in markdown, alongside the source.
-- **Cross-linked, not flat** — documents form a graph with explicit relationships.
-- **Measurable over vague** — every requirement is testable, every metric has a number.
-- **Decision history matters** — ADRs prevent AI agents from suggesting approaches you've already rejected.
-- **One term per concept** — the domain model is the contract that keeps humans and AI agents aligned.
+## Skill
 
-## Author
-
-Parabolic Interactive
+`pi-spec-docs` holds the shared conventions: identifier scheme, frontmatter,
+traceability rules, lifecycle, conformance vocabulary, and the validation
+protocol. Per-document templates and checklists live in its `references/`
+directory, one file per document type, each containing the template and its
+checklist and nothing else.
