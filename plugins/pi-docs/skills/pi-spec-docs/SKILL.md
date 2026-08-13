@@ -33,7 +33,7 @@ say so rather than borrowing one from another standard.
 | Artifact | Standard | Status |
 |---|---|---|
 | Source analysis, SRS | ISO/IEC/IEEE 29148:2018 | Implemented |
-| SAD, ADR | ISO/IEC/IEEE 42010:2022 | Not yet implemented |
+| SAD, ADR | ISO/IEC/IEEE 42010:2022 | Implemented, conformance not claimed |
 | SDD | IEEE 1016-2009 | Not yet implemented |
 | STP | ISO/IEC/IEEE 29119-3:2021 | Not yet implemented |
 | Baselines, change management | ISO/IEC/IEEE 12207:2017 | Referenced by 29148 6.6 |
@@ -83,6 +83,15 @@ prose around them.
 | `ASM-NNN` | Assumption | SRS |
 | `DEP-NNN` | Dependency | SRS |
 | `CR-NNN` | Change request | Realign |
+| `STK-NNN` | Stakeholder | SAD |
+| `PER-NNN` | Stakeholder perspective | SAD |
+| `CNC-NNN` | Concern | SAD |
+| `ASP-NNN` | Architecture aspect | SAD |
+| `VP-NNN` | Architecture viewpoint | SAD |
+| `VW-NNN` | Architecture view | SAD |
+| `MK-NNN` | Model kind | SAD |
+| `COR-NNN` | Correspondence | SAD |
+| `INC-NNN` | Known inconsistency | SAD |
 | `ADR-NNNN` | Architecture decision record | ADR |
 
 `<CAT>` for non-functional requirements is one of `USE`, `PERF`, `DB`, `SEC`,
@@ -127,18 +136,38 @@ fixed version of a configuration item (29148 3.1.3).
 
 ## Conformance Vocabulary
 
-Report conformance using the standard's own terms (29148 clause 4), not invented
-verdicts.
+Report conformance using each standard's own terms, not invented verdicts. **The
+vocabulary differs per standard.** Do not apply one standard's rules to another.
+
+### 29148 documents: analysis reports, SRS
+
+29148 clause 4 defines conformance, and Annex C makes tailoring a normative,
+deliberate act.
 
 - **Full conformance** - all required content of the information item is present.
 - **Tailored conformance** - content is omitted, and each omission is declared
-  with a reason in the document's tailoring record. Tailoring is a normative,
-  deliberate act (29148 Annex C), not an accident.
+  with a reason in the document's tailoring record.
 - **Non-conformant** - required content is missing and undeclared.
 
-An unanswered question is not an omission. Mark it `TBD` (29148 3.2) and register
-it. A document full of declared TBDs is conformant. A document missing sections
-nobody noticed is not.
+### 42010 documents: SAD, ADR
+
+42010 clause 4 states that tailoring is **neither required nor permitted** when a
+conformance claim is made. Conformance is binary. There is no tailored option and
+no tailoring record.
+
+- **Conformant** - the specification meets the requirements of Clause 6.
+- **Not claimed** - no conformance claim is made.
+
+The normative text of 42010 Clause 6 has not been verified against the published
+standard. Until it is, every generated SAD and ADR declares `not-claimed` and
+states that it is structured according to Clause 6. Never assert 42010
+conformance on inferred requirements. See `references/sad.md`.
+
+### TBDs are not omissions
+
+An unanswered question is not missing content. Mark it `TBD` (29148 3.2) and
+register it with an owner. A document full of declared TBDs conforms. A document
+missing sections nobody noticed does not.
 
 ## Traceability
 
@@ -152,12 +181,17 @@ satisfies it and something that verifies it. A requirement with no downward trac
 is unimplemented or untested.
 
 ```
-sources -> S-NNN -> FR-NNN / NFR-NNN -> SAD component -> SDD module
-                         |                                   |
-                         +-------------> STP test case <-----+
-                         |
-                    ADR-NNNN constrains
+sources -> S-NNN -> FR-NNN / NFR-NNN -> VW-NNN view -> SDD module
+                         |                    |             |
+                         |               ADR-NNNN           |
+                         +---------> STP test case <--------+
 ```
+
+Inside the SAD, traceability is expressed as 42010 **correspondences**
+(`COR-NNN`), which are named relations between AD elements. An AD can itself be
+an AD element in another AD (42010 3.11 note 1), so the link from the SAD to the
+SRS and to the SDD is a correspondence, not an ad hoc reference. Correspondence
+methods record whether each rule holds or list its violations.
 
 Findings that do not become requirements are still traced. `S-NNN` may resolve to
 a requirement, a finding, an out-of-scope declaration, or a context
@@ -240,7 +274,7 @@ anything. Each contains the template and its validation checklist.
 |---|---|
 | Analysis reports, source statement register, findings | `references/analysis.md` |
 | Software Requirements Specification | `references/srs.md` |
-| Software Architecture Document | Pending |
+| Software Architecture Document | `references/sad.md` |
+| Architecture Decision Record | `references/adr.md` |
 | Software Design Description | Pending |
 | Software Test Plan | Pending |
-| Architecture Decision Record | Pending |

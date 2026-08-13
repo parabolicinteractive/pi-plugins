@@ -14,10 +14,10 @@ declared in the `pi-spec-docs` skill.
 | Type | Standard | Path | Status |
 |---|---|---|---|
 | `srs` | ISO/IEC/IEEE 29148:2018 | `docs/srs.md` | Available |
-| `sad` | ISO/IEC/IEEE 42010:2022 | `docs/sad.md` | Not yet implemented |
+| `sad` | ISO/IEC/IEEE 42010:2022 | `docs/sad.md` | Available, conformance not claimed |
+| `adr` | ISO/IEC/IEEE 42010:2022 | `docs/adr/NNNN-<slug>.md` | Available, conformance not claimed |
 | `sdd` | IEEE 1016-2009 | `docs/sdd.md` | Not yet implemented |
 | `stp` | ISO/IEC/IEEE 29119-3:2021 | `docs/stp.md` | Not yet implemented |
-| `adr` | ISO/IEC/IEEE 42010:2022 | `docs/adr/NNNN-<slug>.md` | Not yet implemented |
 
 If `$1` is empty, list the types and ask which one.
 
@@ -63,6 +63,13 @@ first.
     `TBD` with a register entry, never an omission.
 
 ### Revise
+
+**ADRs are the exception.** If the type is `adr` and the target's status is
+`accepted`, `rejected`, or `superseded`, do not revise it. Create a new ADR that
+supersedes it, set the old one's `status` and `superseded-by` fields, and change
+nothing else in the old file. Editing an accepted decision record destroys the
+only thing it exists to preserve. A `proposed` ADR may be edited freely. After
+superseding, update the SAD decision register in section 6.1.
 
 5b. Read the existing document. Note its current version and baseline.
 

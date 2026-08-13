@@ -10,14 +10,25 @@ Produces five document types plus the analysis artifacts that connect them:
 
 | Document | Standard | Status |
 |---|---|---|
-| Software Requirements Specification (SRS) | ISO/IEC/IEEE 29148:2018 | Available |
-| Software Architecture Document (SAD) | ISO/IEC/IEEE 42010:2022 | Not yet implemented |
+| Software Requirements Specification (SRS) | ISO/IEC/IEEE 29148:2018 | Available, full conformance |
+| Software Architecture Document (SAD) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
+| Architecture Decision Record (ADR) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
 | Software Design Description (SDD) | IEEE 1016-2009 | Not yet implemented |
 | Software Test Plan (STP) | ISO/IEC/IEEE 29119-3:2021 | Not yet implemented |
-| Architecture Decision Record (ADR) | ISO/IEC/IEEE 42010:2022 | Not yet implemented |
 
 Document types marked as not yet implemented will refuse to generate rather than
 improvise a structure from general knowledge.
+
+**On "conformance not claimed" for 42010.** Its clause 4 states that tailoring is
+neither required nor permitted, so conformance is binary: a document either meets
+Clause 6 or makes no claim. The clause structure, definitions, conformance rules
+and conceptual model were verified against the ISO publisher preview, but the
+normative text of Clause 6 begins at standard page 19, past where every free
+preview stops. The individual requirements were recovered from the standard
+editor's own CC-licensed 2011 template. That is good enough to structure a
+document and not good enough to claim conformance, so generated SADs and ADRs say
+"structured according to Clause 6" and assert nothing further. Purchasing
+42010:2022 upgrades this to a real conformance claim.
 
 ## Why One Standards Family
 
@@ -109,6 +120,10 @@ Identifiers are the load-bearing structure. Everything else is prose around them
 | `CON-NNN` | Constraint |
 | `ASM-NNN` / `DEP-NNN` | Assumption / dependency |
 | `CR-NNN` | Change request |
+| `STK-NNN` / `PER-NNN` | Stakeholder / stakeholder perspective |
+| `CNC-NNN` / `ASP-NNN` | Concern / architecture aspect |
+| `VP-NNN` / `VW-NNN` / `MK-NNN` | Viewpoint / view / model kind |
+| `COR-NNN` / `INC-NNN` | Correspondence / known inconsistency |
 | `ADR-NNNN` | Architecture decision record |
 
 Three absolute rules:
@@ -177,9 +192,23 @@ specification was agreed.
 | ISO/IEC/IEEE 12207:2017 | Systems and software engineering, Software life cycle processes | Baselines and change management |
 | ISO/IEC/IEEE 15289:2019 | Systems and software engineering, Content of life-cycle information items | Information item content |
 
-Clause citations for 29148 were verified against the publisher preview of the
-2018 edition. Clause citations for the other standards are pending verification
-and their document types are not yet implemented for that reason.
+Verification status of the citations used:
+
+| Standard | Verified | Not verified |
+|---|---|---|
+| 29148:2018 | Clause structure, all clause 3 definitions, clause 4 conformance, 5.2.5 to 5.2.8, 6.5.x, 6.6.2, 9.2.x, 9.6.1 to 9.6.20, Annex C | The example SRS outline at 8.5.2 |
+| 42010:2022 | Clause structure, all 19 definitions, clause 4 conformance, 5.1 to 5.2.3, core ontology and cardinalities | Normative text of clauses 6, 7 and 8 |
+| 1016-2009, 29119-3:2021 | Nothing | Everything. Not implemented for that reason |
+
+Where a citation is unverified, the affected template says so in place rather
+than asserting a conformance claim it cannot support.
+
+## Attribution
+
+Requirement content for the SAD and ADR templates was recovered from the
+architecture description template and architecture viewpoint template for use
+with ISO/IEC/IEEE 42010:2011 by Rich Hilliard, licensed under Creative Commons
+Attribution 3.0 Unported. http://www.iso-architecture.org/42010/templates/
 
 ## Skill
 
