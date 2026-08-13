@@ -1,6 +1,6 @@
 ---
 description: Create or revise a specification document
-argument-hint: <srs|sad|sdd|stp|adr> [name]
+argument-hint: "<index|glossary|strs|srs|sad|sdd|stp|adr> [name]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Task, Bash(ls:*,mkdir:*,find:*,git log:*,git diff:*,git tag:*)
 ---
 
@@ -13,6 +13,7 @@ declared in the `pi-spec-docs` skill.
 
 | Type | Standard | Path | Status |
 |---|---|---|---|
+| `index` | Project convention | `docs/README.md` | Available, generated |
 | `glossary` | Project convention | `docs/glossary.md` | Available |
 | `strs` | ISO/IEC/IEEE 29148:2018 | `docs/strs.md` | Available |
 | `srs` | ISO/IEC/IEEE 29148:2018 | `docs/srs.md` | Available |
@@ -28,6 +29,11 @@ execution-time artifacts and this package does not generate them. If a user asks
 for one, say so and name the clause so they know it exists.
 
 If `$1` is empty, list the types and ask which one.
+
+`index` is generated rather than authored. It reads the current state of `docs/`
+and overwrites `docs/README.md` without asking, since hand edits to it are not
+preserved by design. Regenerate it after any structural change; `/pi-docs-baseline`
+does so automatically.
 
 If `$1` names a type marked "Not yet implemented", say so plainly and stop. Do
 not improvise a template from general knowledge. Offer to research the standard

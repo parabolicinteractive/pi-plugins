@@ -50,6 +50,7 @@ rather than improvising a template.
 
 ```
 docs/
+  README.md                               Generated index and agent guidance
   glossary.md                             Canonical project vocabulary
   strs.md                                 Stakeholder Requirements Specification
   srs.md                                  Software Requirements Specification
@@ -62,6 +63,8 @@ docs/
     0001-<date>-<slug>.md                 Analysis reports
   changes/
     CR-001-<slug>.md                      Change Requests
+  baselines/
+    1.0.md                                Baseline records
   sources/                                Optional. Raw source material.
 ```
 
@@ -242,6 +245,28 @@ changes. Prior versions live in git history, not as parallel files.
 decision changes, write a new ADR and set the old one to `superseded`. The record
 of a reversed decision retains its value.
 
+## Baselines
+
+A baseline is a formally approved version of a configuration item, formally
+designated and fixed at a specific time (29148 3.1.3). **Formally approved** is
+the operative phrase: a baseline records that a specification was agreed, not
+merely that it was written.
+
+Baselines are created by `/pi-docs-baseline`, which gates on set integrity,
+collects approval, stamps frontmatter, writes a record to `docs/baselines/`, and
+optionally tags git. Nothing else may set `status: baselined`.
+
+Baseline records are never edited. To change what is frozen, create the next
+baseline.
+
+Everything downstream measures from here. Impact analysis diffs against the
+current baseline. Scope reporting is the set of change requests carrying it.
+Requirements volatility is computed across successive ones. Skipping baselines
+does not fail loudly; it degrades all three quietly.
+
+After a baseline exists, documents change through change requests rather than
+direct edits.
+
 ## Source Coverage
 
 No instruction or intent from source material may be lost. This is not a quality
@@ -326,6 +351,7 @@ anything. Each contains the template and its validation checklist.
 | Document | Reference |
 |---|---|
 | Analysis reports, source statement register, findings | `references/analysis.md` |
+| Document index and agent guidance | `references/index.md` |
 | Project glossary | `references/glossary.md` |
 | Stakeholder Requirements Specification | `references/strs.md` |
 | Software Requirements Specification | `references/srs.md` |

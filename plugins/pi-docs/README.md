@@ -10,6 +10,7 @@ Produces five document types plus the analysis artifacts that connect them:
 
 | Document | Standard | Status |
 |---|---|---|
+| Document index and agent guidance | Project convention | Available, generated |
 | Project glossary | Project convention | Available |
 | Stakeholder Requirements Specification (StRS) | ISO/IEC/IEEE 29148:2018 | Available, full conformance |
 | Software Requirements Specification (SRS) | ISO/IEC/IEEE 29148:2018 | Available, full conformance |
@@ -75,7 +76,14 @@ transcripts, or an existing codebase.
 ### `/pi-docs-realign [baseline]`
 
 Check the whole document set for conformance, consistency, currency, and
-terminology. Reports findings, then walks each one to a disposition.
+terminology. Reports findings, then walks each one to a disposition, and emits
+the measurement snapshot.
+
+### `/pi-docs-baseline [label]`
+
+Freeze the document set as a formally approved baseline. Gates on set integrity,
+collects approval, stamps every document, writes a baseline record, and offers to
+tag git.
 
 ## Terminology
 
@@ -96,6 +104,41 @@ domain term used but defined nowhere, a rejected term still in use, and a
 glossary term no document uses. The glossary also records external terminology
 mappings, so when the client's Salesforce calls a Customer an Account, nobody
 "corrects" the boundary code or the documents to match.
+
+## Baselines
+
+A baseline is a formally approved version of a configuration item, fixed at a
+specific time (29148 3.1.3). **Formally approved** is the operative phrase: it
+records that a specification was agreed, not merely written.
+
+`/pi-docs-baseline` is the only thing that creates one. It gates on set
+integrity, collects approval by name and role, stamps every document, writes a
+record to `docs/baselines/`, and offers to tag git.
+
+The gate blocks on hard failures and warns on the rest. It refuses while any
+coverage finding is open or any source statement is undispositioned, because both
+mean intent may have been lost and a baseline is a claim that it has not. It
+warns but proceeds on open TBDs and unclaimed conformance, because shipping a
+specification with declared unknowns is a legitimate business decision. Accepted
+warnings are recorded in the baseline record, so the decision survives.
+
+Everything downstream measures from here: impact analysis diffs against the
+current baseline, scope reporting is the set of change requests carrying it, and
+requirements volatility is computed across successive ones.
+
+## Measurement
+
+Per 29148 6.6.3, `/pi-docs-realign` reports requirements count and volatility,
+source coverage, parent and child coverage, allocation and verification coverage,
+TBD burn-down, open findings by class and severity, and change requests since
+baseline.
+
+Volatility is the headline: `(added + modified + withdrawn since last baseline) /
+total at last baseline`. It answers whether the specification is converging.
+Rising volatility across successive baselines means requirements are still being
+discovered, which is an engineering signal and, on client work, a commercial one.
+
+No aggregate score is invented. The numbers are reported as numbers.
 
 ## Source Coverage
 
@@ -222,6 +265,7 @@ document with gaps nobody noticed does not.
 
 ```
 docs/
+  README.md
   glossary.md
   strs.md
   srs.md
@@ -234,6 +278,8 @@ docs/
     0001-<date>-<slug>.md
   changes/
     CR-001-<slug>.md
+  baselines/
+    1.0.md
   sources/
 ```
 

@@ -1,6 +1,6 @@
 ---
 description: Check the spec document set for conformance, consistency, and currency
-argument-hint: [baseline, tag, or commit to compare against]
+argument-hint: "[baseline, tag, or commit to compare against]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion, Bash(ls:*,find:*,git log:*,git diff:*,git tag:*,git show:*)
 ---
 
@@ -39,6 +39,32 @@ is suspect.
 defined anywhere, or listed as rejected but still in use? Skip this class if
 `docs/glossary.md` does not exist, and say that it was skipped rather than
 reporting a clean result.
+
+## Measurement
+
+Per ISO/IEC/IEEE 29148 6.6.3, measurement for requirements. Every measure below
+is computed from identifiers and change requests that already exist. Report the
+numbers; do not invent an aggregate score.
+
+| Measure | Definition |
+|---|---|
+| Requirements count | Total `FR-` plus `NFR-`, broken down by status |
+| **Requirements volatility** | `(added + modified + withdrawn since last baseline) / total at last baseline`, as a percentage |
+| Source coverage | `dispositioned S-NNN / total S-NNN`. Must be 100 percent |
+| Parent coverage | Percentage of requirements naming a parent `STR-NNN` |
+| Child coverage | Percentage of `STR-NNN` with at least one child requirement |
+| Allocation coverage | Percentage of requirements allocated to a SAD view or SDD entity |
+| Verification coverage | Percentage of requirements with a verification approach in SRS section 4 and coverage in STP section 11 |
+| TBD count | Open TBD register entries across all documents, and the delta since the last baseline |
+| Findings open | Count by class and severity, and the age of the oldest |
+| Change requests | Count since the current baseline, by status |
+
+**Volatility is the headline.** It answers whether the specification is
+converging. Rising volatility across successive baselines means requirements are
+still being discovered, which is an engineering signal and, on client work, a
+commercial one. State it plainly rather than burying it.
+
+Report volatility as unavailable, not as zero, when no previous baseline exists.
 
 ## Procedure
 
@@ -116,11 +142,16 @@ reporting a clean result.
     current `baseline` value, with its status. This is the record of what arrived
     after the specification was agreed.
 
-13. Report to the user:
+13. Compute the measurement snapshot per the Measurement section above and append
+    it to the report.
+
+14. Report to the user:
     - Report path
+    - Set state: which documents exist, their versions, baselines and conformance
     - Findings by type, severity, and disposition
     - Documents whose conformance changed
     - Scope since baseline: change request count and their status
+    - Measurement snapshot, leading with requirements volatility
     - Findings still open
 
 ## Notes

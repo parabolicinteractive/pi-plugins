@@ -1,6 +1,6 @@
 ---
 description: Analyze source material into a statement register and findings
-argument-hint: [path or description of sources]
+argument-hint: "[path or description of sources]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Task, Bash(ls:*,mkdir:*,find:*,wc:*)
 ---
 
