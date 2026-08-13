@@ -35,7 +35,7 @@ say so rather than borrowing one from another standard.
 | Source analysis, SRS | ISO/IEC/IEEE 29148:2018 | Implemented |
 | SAD, ADR | ISO/IEC/IEEE 42010:2022 | Implemented, conformance not claimed |
 | STP | ISO/IEC/IEEE 29119-3:2021 | Implemented |
-| SDD | IEEE 1016-2009 | Not yet implemented |
+| SDD | IEEE 1016-2009 | Implemented, conformance not claimed |
 | Baselines, change management | ISO/IEC/IEEE 12207:2017 | Referenced by 29148 6.6 |
 | Information item content | ISO/IEC/IEEE 15289:2019 | Umbrella |
 
@@ -97,6 +97,12 @@ prose around them.
 | `TM-NNN` | Test model | STP |
 | `TCI-NNN` | Test coverage item | STP |
 | `TC-NNN` | Test case | STP |
+| `DSTK-NNN` | Design stakeholder | SDD |
+| `DCN-NNN` | Design concern | SDD |
+| `DVP-NNN` / `DVW-NNN` | Design viewpoint / design view | SDD |
+| `DE-NNN` | Design entity | SDD |
+| `DR-NNN` / `DCON-NNN` | Design relationship / design constraint | SDD |
+| `DOV-NNN` | Design overlay | SDD |
 
 `<CAT>` for non-functional requirements is one of `USE`, `PERF`, `DB`, `SEC`,
 `REL`, `MAINT`, `PORT`, matching the 29148 9.6 content elements they derive from.
@@ -171,6 +177,14 @@ The normative text of 42010 Clause 6 has not been verified against the published
 standard. Until it is, every generated SAD and ADR declares `not-claimed` and
 states that it is structured according to Clause 6. Never assert 42010
 conformance on inferred requirements. See `references/sad.md`.
+
+### Conformance rules unknown: SDD (1016-2009)
+
+No conformance clause was located for IEEE 1016-2009, and no first-party
+publisher material was obtained for it at all. The rules for claiming conformance
+are themselves unknown, so a generated SDD declares `not-claimed` and states that
+it is structured according to clause 4. This is the weakest-sourced document type
+in the package. See `references/sdd.md`.
 
 ### TBDs are not omissions
 
@@ -286,4 +300,4 @@ anything. Each contains the template and its validation checklist.
 | Software Architecture Document | `references/sad.md` |
 | Architecture Decision Record | `references/adr.md` |
 | Software Test Plan | `references/stp.md` |
-| Software Design Description | Pending |
+| Software Design Description | `references/sdd.md` |

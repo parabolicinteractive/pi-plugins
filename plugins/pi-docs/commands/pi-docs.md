@@ -17,7 +17,7 @@ declared in the `pi-spec-docs` skill.
 | `sad` | ISO/IEC/IEEE 42010:2022 | `docs/sad.md` | Available, conformance not claimed |
 | `adr` | ISO/IEC/IEEE 42010:2022 | `docs/adr/NNNN-<slug>.md` | Available, conformance not claimed |
 | `stp` | ISO/IEC/IEEE 29119-3:2021 | `docs/stp.md` | Available |
-| `sdd` | IEEE 1016-2009 | `docs/sdd.md` | Not yet implemented |
+| `sdd` | IEEE 1016-2009 | `docs/sdd.md` | Available, conformance not claimed |
 
 `stp` produces the project test plan (29119-3 clause 7.2). 29119-3 defines a
 wider family of test documents, including test case and test procedure

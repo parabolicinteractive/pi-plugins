@@ -14,10 +14,7 @@ Produces five document types plus the analysis artifacts that connect them:
 | Software Architecture Document (SAD) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
 | Architecture Decision Record (ADR) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
 | Software Test Plan (STP) | ISO/IEC/IEEE 29119-3:2021 | Available, full conformance |
-| Software Design Description (SDD) | IEEE 1016-2009 | Not yet implemented |
-
-Document types marked as not yet implemented will refuse to generate rather than
-improvise a structure from general knowledge.
+| Software Design Description (SDD) | IEEE 1016-2009 | Available, conformance not claimed |
 
 **On "conformance not claimed" for 42010.** Its clause 4 states that tailoring is
 neither required nor permitted, so conformance is binary: a document either meets
@@ -127,6 +124,9 @@ Identifiers are the load-bearing structure. Everything else is prose around them
 | `ADR-NNNN` | Architecture decision record |
 | `RSK-NNN` | Risk register entry |
 | `TM-NNN` / `TCI-NNN` / `TC-NNN` | Test model / test coverage item / test case |
+| `DSTK-NNN` / `DCN-NNN` | Design stakeholder / design concern |
+| `DVP-NNN` / `DVW-NNN` | Design viewpoint / design view |
+| `DE-NNN` / `DR-NNN` / `DCON-NNN` | Design entity / relationship / constraint |
 
 Three absolute rules:
 
@@ -201,10 +201,15 @@ Verification status of the citations used:
 | 29148:2018 | Clause structure, all clause 3 definitions, clause 4 conformance, 5.2.5 to 5.2.8, 6.5.x, 6.6.2, 9.2.x, 9.6.1 to 9.6.20, Annex C | The example SRS outline at 8.5.2 |
 | 29119-3:2021 | Clause structure, every content element of clauses 5 to 8, all 26 clause 3 definitions, clause 1 scope, Figure 1 document hierarchy | Clause 4 normative text, and the Annex A obligation levels |
 | 42010:2022 | Clause structure, all 19 definitions, clause 4 conformance, 5.1 to 5.2.3, core ontology and cardinalities | Normative text of clauses 6, 7 and 8 |
-| 1016-2009 | Nothing | Everything. Not implemented for that reason |
+| 1016-2009 | Nothing first-party. Clause structure, clause 4 required contents, the twelve viewpoints and the design element model are corroborated across three independent secondary sources | Everything else, including whether the standard defines conformance rules at all |
 
 Where a citation is unverified, the affected template says so in place rather
 than asserting a conformance claim it cannot support.
+
+**1016-2009 is the weak link.** IEEE is not ISO, so there is no publisher sample
+in the format that worked for the three ISO standards; Accuris and ANSI refused
+the request and IEEE Xplore blocked it. Its template was built from secondary
+sources and says so. If you buy one standard, buy this one.
 
 ## Attribution
 
