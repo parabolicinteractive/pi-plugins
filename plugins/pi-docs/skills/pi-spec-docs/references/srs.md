@@ -60,6 +60,7 @@ OpenID Connect provider.**
 |---|---|
 | Identifier | FR-AUTH-001 |
 | Rationale | Client mandates no separate credential store. |
+| Parent | STR-003 |
 | Source | S-001 (RFP 3.2) |
 | Priority | Must |
 | Verification method | Test |
@@ -93,10 +94,22 @@ OpenID Connect provider.**
 | Verification method | Test, Analysis, Inspection, Demonstration |
 | Status | Proposed, Approved, Baselined, Withdrawn |
 
-`Source` cites an `S-NNN` from an analysis report, or a parent requirement for a
-derived requirement (29148 3.1.10). A requirement with no source is unjustified.
-If it genuinely originates from engineering judgment rather than a stakeholder,
-say so explicitly: `Derived (engineering judgment)`.
+`Parent` cites the `STR-NNN` this requirement is derived from (29148 3.1.10). When
+the project has a Stakeholder Requirements Specification, **every functional and
+non-functional requirement names a parent**. A requirement with no parent is work
+nobody asked for.
+
+`Source` cites the `S-NNN` the parent came from, carried forward so the whole
+chain reads from one row. When the project has no StRS, omit `Parent` and cite
+the `S-NNN` in `Source` directly.
+
+A requirement with neither is unjustified. If it genuinely originates from
+engineering judgment rather than a stakeholder, say so explicitly:
+`Derived (engineering judgment)`.
+
+The discipline: a stakeholder requirement states the need, a software requirement
+states what the software does about it. If the two are the same sentence, one of
+them is padding. See `references/strs.md`.
 
 `Withdrawn` requirements stay in the document. Never delete, never renumber,
 never reuse the identifier.
@@ -411,11 +424,13 @@ document with declared TBDs is conformant. A document with undeclared gaps is no
 
 ## 5.2 Traceability
 
-### 5.2.1 Upward, Source to Requirement
+### 5.2.1 Upward, Source to Stakeholder Requirement to Requirement
 
-| Source statement | Requirement |
-|---|---|
-| S-001 | FR-AUTH-001 |
+| Source statement | Stakeholder requirement | Requirement |
+|---|---|---|
+| S-001 | STR-003 | FR-AUTH-001 |
+
+Requirements with no parent: none.
 
 ### 5.2.2 Downward, Requirement to Allocation and Verification
 

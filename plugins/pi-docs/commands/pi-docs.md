@@ -13,6 +13,7 @@ declared in the `pi-spec-docs` skill.
 
 | Type | Standard | Path | Status |
 |---|---|---|---|
+| `strs` | ISO/IEC/IEEE 29148:2018 | `docs/strs.md` | Available |
 | `srs` | ISO/IEC/IEEE 29148:2018 | `docs/srs.md` | Available |
 | `sad` | ISO/IEC/IEEE 42010:2022 | `docs/sad.md` | Available, conformance not claimed |
 | `adr` | ISO/IEC/IEEE 42010:2022 | `docs/adr/NNNN-<slug>.md` | Available, conformance not claimed |
@@ -51,6 +52,14 @@ first.
     exists, read it and build the document from its source statement register.
     Every `S-NNN` dispositioned as `requirement` must resolve to a requirement in
     the new document.
+
+    **For `srs`, check whether `docs/strs.md` exists first.** If it does, build
+    the SRS from the stakeholder requirements, not from the source register:
+    every functional and non-functional requirement names a parent `STR-NNN`, and
+    every `STR-NNN` gains at least one child. If it does not exist, ask whether
+    the user wants one before proceeding. On client work the StRS is the record
+    of what was asked for, and it is far cheaper to write before the SRS than to
+    reconstruct after a dispute.
 
     If no analysis report exists and the user has source material, stop and tell
     them to run `/pi-docs-analyze-sources` first. Building an SRS directly from

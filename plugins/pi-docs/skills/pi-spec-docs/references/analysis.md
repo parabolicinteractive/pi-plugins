@@ -42,11 +42,11 @@ Assign each an `S-NNN` and exactly one disposition.
 
 | ID | Statement | Source | Disposition | Resolves To |
 |---|---|---|---|---|
-| S-001 | Users sign in with their corporate Google account. | RFP 3.2 | requirement | FR-AUTH-001 |
+| S-001 | Users sign in with their corporate Google account. | RFP 3.2 | requirement | STR-003 |
 | S-002 | The system should be fast. | RFP 3.4 | finding | F-002 |
 | S-003 | We use Jira internally for ticketing. | Kickoff 2026-07-14 | context | - |
 | S-004 | Reporting module, possibly phase two. | Kickoff 2026-07-14 | out-of-scope | See 3.2 |
-| S-005 | Must retain audit logs for seven years. | RFP 5.1 | requirement | NFR-SEC-004 |
+| S-005 | Must retain audit logs for seven years. | RFP 5.1 | requirement | STR-011 |
 
 Statements: 5. Dispositioned: 5. Undispositioned: 0.
 ```
@@ -56,6 +56,10 @@ The final line is a required invariant check. `Undispositioned` must be zero.
 ### Disposition Rules
 
 - `requirement` - the statement became a requirement. Name it in `Resolves To`.
+  When the project has a Stakeholder Requirements Specification, this resolves to
+  an `STR-NNN`, not directly to a software requirement. The StRS then carries the
+  derivation to `FR-NNN` and `NFR-NNN`. Resolve directly to a software
+  requirement only when the project has no StRS.
 - `finding` - the statement cannot become a requirement as written. It is
   ambiguous, contradictory, unverifiable, or requires client input. Name the
   `F-NNN`.

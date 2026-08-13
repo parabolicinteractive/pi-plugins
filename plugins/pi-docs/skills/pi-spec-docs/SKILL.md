@@ -32,7 +32,7 @@ say so rather than borrowing one from another standard.
 
 | Artifact | Standard | Status |
 |---|---|---|
-| Source analysis, SRS | ISO/IEC/IEEE 29148:2018 | Implemented |
+| Source analysis, StRS, SRS | ISO/IEC/IEEE 29148:2018 | Implemented |
 | SAD, ADR | ISO/IEC/IEEE 42010:2022 | Implemented, conformance not claimed |
 | STP | ISO/IEC/IEEE 29119-3:2021 | Implemented |
 | SDD | IEEE 1016-2009 | Implemented, conformance not claimed |
@@ -50,6 +50,7 @@ rather than improvising a template.
 
 ```
 docs/
+  strs.md                                 Stakeholder Requirements Specification
   srs.md                                  Software Requirements Specification
   sad.md                                  Software Architecture Document
   sdd.md                                  Software Design Description
@@ -76,6 +77,10 @@ prose around them.
 |---|---|---|
 | `S-NNN` | Source statement | Source analysis |
 | `F-NNN` | Finding | Source analysis, realign |
+| `SHR-NNN` | Stakeholder | StRS |
+| `STR-NNN` | Stakeholder requirement | StRS |
+| `OPS-NNN` | Operational scenario | StRS |
+| `PCON-NNN` | Project constraint | StRS |
 | `FR-NNN` | Functional requirement | SRS |
 | `FR-<AREA>-NNN` | Functional requirement, namespaced | SRS |
 | `NFR-<CAT>-NNN` | Non-functional requirement | SRS |
@@ -204,11 +209,17 @@ satisfies it and something that verifies it. A requirement with no downward trac
 is unimplemented or untested.
 
 ```
-sources -> S-NNN -> FR-NNN / NFR-NNN -> VW-NNN view -> SDD module
-                         |                    |             |
-                         |               ADR-NNNN           |
-                         +---------> STP test case <--------+
+sources -> S-NNN -> STR-NNN -> FR-NNN / NFR-NNN -> VW-NNN -> DE-NNN
+                                     |               |          |
+                                     |          ADR-NNNN        |
+                                     +-----> STP test case <----+
 ```
+
+`STR-NNN` is the stakeholder requirement, the parent of the software
+requirements derived from it (29148 3.1.10). It exists so the client's stated
+need survives the transformation into shall-statements. Projects without a
+Stakeholder Requirements Specification run `S-NNN` straight to `FR-NNN`, and the
+StRS hop is simply absent rather than empty.
 
 Inside the SAD, traceability is expressed as 42010 **correspondences**
 (`COR-NNN`), which are named relations between AD elements. An AD can itself be
@@ -240,7 +251,7 @@ identifier and exactly one disposition:
 
 | Disposition | Meaning |
 |---|---|
-| `requirement` | Became `FR-NNN`, `NFR-<CAT>-NNN`, `CON-NNN`, `ASM-NNN`, or `DEP-NNN` |
+| `requirement` | Became `STR-NNN` when the project has an StRS, otherwise `FR-NNN`, `NFR-<CAT>-NNN`, `CON-NNN`, `ASM-NNN`, or `DEP-NNN` |
 | `finding` | Became `F-NNN`. Ambiguous, contradictory, unverifiable, or needs client input |
 | `out-of-scope` | Deliberately excluded, with a recorded reason |
 | `context` | Background or narrative. Not a requirement and not actionable |
@@ -296,6 +307,7 @@ anything. Each contains the template and its validation checklist.
 | Document | Reference |
 |---|---|
 | Analysis reports, source statement register, findings | `references/analysis.md` |
+| Stakeholder Requirements Specification | `references/strs.md` |
 | Software Requirements Specification | `references/srs.md` |
 | Software Architecture Document | `references/sad.md` |
 | Architecture Decision Record | `references/adr.md` |

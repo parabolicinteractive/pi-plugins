@@ -10,6 +10,7 @@ Produces five document types plus the analysis artifacts that connect them:
 
 | Document | Standard | Status |
 |---|---|---|
+| Stakeholder Requirements Specification (StRS) | ISO/IEC/IEEE 29148:2018 | Available, full conformance |
 | Software Requirements Specification (SRS) | ISO/IEC/IEEE 29148:2018 | Available, full conformance |
 | Software Architecture Document (SAD) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
 | Architecture Decision Record (ADR) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
@@ -85,7 +86,7 @@ disposition:
 
 | Disposition | Meaning |
 |---|---|
-| `requirement` | Became a requirement, named explicitly |
+| `requirement` | Became a requirement, named explicitly. Resolves to a stakeholder requirement when the project has an StRS |
 | `finding` | Ambiguous, contradictory, unverifiable, or needs client input |
 | `out-of-scope` | Deliberately excluded, with a recorded reason |
 | `context` | Background carrying no instruction |
@@ -104,6 +105,41 @@ Three validators run after generation as independent subagents:
    catches drift, invention, and hedges promoted to mandates.
 3. **Conformance** checks required content and requirement characteristics.
 
+## The Requirement Chain
+
+29148 defines four requirements information items. This package implements the
+two that matter for software delivery, and the hop between them is where the
+evidential value lives.
+
+```
+source material
+   |
+   S-NNN     source statement, verbatim, with a locatable citation
+   |
+   STR-NNN   stakeholder requirement, the need in the stakeholder's own terms
+   |
+   FR-NNN    software requirement, what the software shall do about it
+```
+
+The StRS exists because an SRS full of shall-statements is an argument, while a
+stakeholder requirement quoting the client's stated need, traced back to the
+source it came from and forward to the requirements derived from it, is a record.
+When someone says "that is not what we asked for", that difference is the whole
+ballgame.
+
+Both hops are checked in both directions. A stakeholder requirement with no
+children is an unmet need. A software requirement with no parent is work nobody
+asked for. Both are findings.
+
+The discipline that makes it worth the extra document: a stakeholder requirement
+states the **need**, a software requirement states what the software **does about
+it**. If the two are the same sentence with different identifiers, the StRS is
+padding. One need typically yields several software requirements, and the reason
+each exists stays legible.
+
+Projects without an StRS run source statements straight to software
+requirements. The hop is absent rather than empty.
+
 ## Identifiers
 
 Identifiers are the load-bearing structure. Everything else is prose around them.
@@ -112,6 +148,8 @@ Identifiers are the load-bearing structure. Everything else is prose around them
 |---|---|
 | `S-NNN` | Source statement |
 | `F-NNN` | Finding |
+| `SHR-NNN` / `STR-NNN` | Stakeholder / stakeholder requirement |
+| `OPS-NNN` / `PCON-NNN` | Operational scenario / project constraint |
 | `FR-<AREA>-NNN` | Functional requirement |
 | `NFR-<CAT>-NNN` | Non-functional requirement |
 | `CON-NNN` | Constraint |
@@ -163,6 +201,7 @@ document with gaps nobody noticed does not.
 
 ```
 docs/
+  strs.md
   srs.md
   sad.md
   sdd.md
