@@ -13,6 +13,7 @@ declared in the `pi-spec-docs` skill.
 
 | Type | Standard | Path | Status |
 |---|---|---|---|
+| `glossary` | Project convention | `docs/glossary.md` | Available |
 | `strs` | ISO/IEC/IEEE 29148:2018 | `docs/strs.md` | Available |
 | `srs` | ISO/IEC/IEEE 29148:2018 | `docs/srs.md` | Available |
 | `sad` | ISO/IEC/IEEE 42010:2022 | `docs/sad.md` | Available, conformance not claimed |
@@ -39,6 +40,10 @@ first.
 
 2. Read the reference file for the requested type from
    `${CLAUDE_PLUGIN_ROOT}/skills/pi-spec-docs/references/`.
+
+   Also read `docs/glossary.md` if it exists, and use its terms while drafting.
+   Never introduce a synonym for a term already defined there, and never use a
+   term listed as rejected.
 
 3. Locate the project root. Look for `.git` first, then `package.json`,
    `pyproject.toml`, `go.mod`, `Cargo.toml`. Create `docs/` and any needed

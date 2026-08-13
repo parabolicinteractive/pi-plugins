@@ -83,7 +83,7 @@ range. "The client said" is not a citation.
 ```markdown
 ### F-002: Performance expectation is unverifiable
 
-- **Type**: Conformance | Consistency | Currency | Coverage | Fidelity
+- **Type**: Conformance | Consistency | Currency | Coverage | Fidelity | Terminology
 - **Violates**: Verifiable (individual characteristic, 29148 5.2.5)
 - **Severity**: High | Medium | Low
 - **Class**: Mechanical | Judgment
@@ -110,6 +110,7 @@ Omit `Trigger` and `Affects` on validation findings where they do not apply.
 | `Conformance` | Does a document lack required content, or a requirement lack a required characteristic? | Conformance validator, realign |
 | `Consistency` | Do two documents or two requirements contradict? | Realign |
 | `Currency` | Does a document cite something that has since changed? | Realign |
+| `Terminology` | Is a term defined two ways, used undefined, or rejected but still in use? | Realign |
 
 ### Finding Class
 

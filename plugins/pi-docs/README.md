@@ -10,6 +10,7 @@ Produces five document types plus the analysis artifacts that connect them:
 
 | Document | Standard | Status |
 |---|---|---|
+| Project glossary | Project convention | Available |
 | Stakeholder Requirements Specification (StRS) | ISO/IEC/IEEE 29148:2018 | Available, full conformance |
 | Software Requirements Specification (SRS) | ISO/IEC/IEEE 29148:2018 | Available, full conformance |
 | Software Architecture Document (SAD) | ISO/IEC/IEEE 42010:2022 | Available, conformance not claimed |
@@ -73,8 +74,28 @@ transcripts, or an existing codebase.
 
 ### `/pi-docs-realign [baseline]`
 
-Check the whole document set for conformance, consistency, and currency. Reports
-findings, then walks each one to a disposition.
+Check the whole document set for conformance, consistency, currency, and
+terminology. Reports findings, then walks each one to a disposition.
+
+## Terminology
+
+`docs/glossary.md` holds one canonical definition per term for the whole set.
+Each document keeps its standard definitions slot but carries only terms specific
+to it; anything shared lives in the glossary, and where the two disagree the
+glossary wins.
+
+This is the one artifact in the package that is a project convention rather than
+a standard-defined information item, and it says so in place rather than
+borrowing a citation. Its justification is 29148 5.2.6, which names `consistent`
+as a requirement-set characteristic and defines it to include uniform
+terminology. Six local glossaries with nothing reconciling them is the drift
+problem, not a solution to it.
+
+Realign raises four kinds of terminology finding: a term defined two ways, a
+domain term used but defined nowhere, a rejected term still in use, and a
+glossary term no document uses. The glossary also records external terminology
+mappings, so when the client's Salesforce calls a Customer an Account, nobody
+"corrects" the boundary code or the documents to match.
 
 ## Source Coverage
 
@@ -201,6 +222,7 @@ document with gaps nobody noticed does not.
 
 ```
 docs/
+  glossary.md
   strs.md
   srs.md
   sad.md

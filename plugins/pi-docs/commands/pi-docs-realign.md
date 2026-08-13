@@ -35,6 +35,11 @@ citations pointing at identifiers that do not exist.
 updated? This is the cascade: when a requirement moves, every document citing it
 is suspect.
 
+**Terminology.** Is a term defined two ways across documents, used without being
+defined anywhere, or listed as rejected but still in use? Skip this class if
+`docs/glossary.md` does not exist, and say that it was skipped rather than
+reporting a clean result.
+
 ## Procedure
 
 1. Read `${CLAUDE_PLUGIN_ROOT}/skills/pi-spec-docs/SKILL.md` and
@@ -61,6 +66,17 @@ is suspect.
    Extract the identifiers of requirements whose statement, attributes, or status
    changed. For each changed identifier, find every downstream citation and raise
    a `Currency` finding against that section.
+
+6b. Run the terminology check, if `docs/glossary.md` exists. Read it, then for
+    each document compare its local definitions section against the glossary and
+    scan its body for rejected terms and for domain terms defined nowhere. Raise
+    `Terminology` findings per `references/glossary.md`. Undefined-term detection
+    is imprecise, so prefer a candidate list the user can dismiss over silently
+    missing drift; `Accepted` dispositions persist so a dismissed term is not
+    raised again.
+
+    If the glossary does not exist, report the class as skipped. Do not report it
+    as clean.
 
 7. Classify every finding as `Mechanical` or `Judgment`.
 

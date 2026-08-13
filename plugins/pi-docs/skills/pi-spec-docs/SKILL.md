@@ -50,6 +50,7 @@ rather than improvising a template.
 
 ```
 docs/
+  glossary.md                             Canonical project vocabulary
   strs.md                                 Stakeholder Requirements Specification
   srs.md                                  Software Requirements Specification
   sad.md                                  Software Architecture Document
@@ -286,6 +287,24 @@ Each validator returns findings in the standard finding format. Merge them into
 the analysis report as new `F-NNN` entries. Report the counts to the user. Never
 report a document as complete while coverage findings are open.
 
+## Terminology
+
+`docs/glossary.md` holds the canonical vocabulary for the project. Where a
+document's own definitions section and the glossary disagree, the glossary wins.
+
+Each document keeps its standard definitions slot (29148 9.2.3 and 9.2.5,
+29119-3 5.2.9, IEEE 1016 clause 2) but carries only terms specific to that
+document. Anything shared across two or more documents belongs in the glossary.
+
+Before writing any document, read `docs/glossary.md` if it exists and use its
+terms. Do not introduce a synonym for a term that is already defined, and never
+use a term listed as rejected.
+
+This is a project convention, not a standard-defined information item. Its
+justification is 29148 5.2.6, which names `consistent` as a requirement-set
+characteristic and defines it to include uniform terminology. Do not cite a
+standard as though it specified a glossary document.
+
 ## Output Rules
 
 All generated document content, including filenames, headings, body text,
@@ -307,6 +326,7 @@ anything. Each contains the template and its validation checklist.
 | Document | Reference |
 |---|---|
 | Analysis reports, source statement register, findings | `references/analysis.md` |
+| Project glossary | `references/glossary.md` |
 | Stakeholder Requirements Specification | `references/strs.md` |
 | Software Requirements Specification | `references/srs.md` |
 | Software Architecture Document | `references/sad.md` |
